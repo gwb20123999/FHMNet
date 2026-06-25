@@ -490,7 +490,7 @@ class MultiScalePredictionHead(nn.Module):
         )
 
 
-class FHKMNet(nn.Module):
+class FHMNet(nn.Module):
     def __init__(self, opt):
         super().__init__()
         self.backbone = pvt_v2_b2()
