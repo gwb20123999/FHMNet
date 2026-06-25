@@ -1,0 +1,11 @@
+torch
+torchvision
+timm
+tensorboardX
+tqdm
+numpy
+Pillow
+opencv-python
+py_sod_metrics
+scikit-learn
+scipy
