@@ -9,7 +9,7 @@ from tqdm import tqdm
 from datetime import datetime
 from utils_lr import adjust_lr
 from utils.utils import set_gpu, structure_loss, clip_gradient
-from models.FHKMNet import FHKMNet
+from models.FHMNet import FHMNet
 from data import get_dataloader
 from py_sod_metrics import MAE, Emeasure, Fmeasure, Smeasure, WeightedFmeasure
 from utils.utils import load_model_params
@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name', type=str, default='FHKMNet')
+    parser.add_argument('--model_name', type=str, default='FHMNet')
     parser.add_argument('--epoch', type=int, default=150, help='epoch number')
     parser.add_argument('--lr', type=float, default=5e-5, help='learning rate')
     parser.add_argument('--decay_rate', type=float, default=0.1, help='decay rate of learning rate')
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=16, help='the number of workers in dataloader')
     parser.add_argument('--gpu_id', type=str, default='0', help='train use gpu')
     parser.add_argument('--data_root', type=str, default='./dataset/R2C7K', help='the path to put dataset')
-    parser.add_argument('--save_root', type=str, default='./snapshot/fhkmnet/', help='the path to save model params and log')
+    parser.add_argument('--save_root', type=str, default='./snapshot/fhmnet/', help='the path to save model params and log')
     parser.add_argument('--pvt_weights', type=str, default='./pvt_weights/pvt_v2_b2.pth', help='the path to save model params and log')
     set_seed(42)
     opt = parser.parse_args()
@@ -258,7 +258,7 @@ if __name__ == '__main__':
     start_time = time()
 
     print(">>> before model init")
-    model = FHKMNet(opt).cuda()
+    model = FHMNet(opt).cuda()
     print(">>> after model init")
     save_model_code_to_txt(
         model,
@@ -296,7 +296,7 @@ if __name__ == '__main__':
         train(train_loader, model, optimizer, epoch, save_path, writer)
         val(test_loader, model, save_path)
 
-    ref_model = FHKMNet(opt).cuda()
+    ref_model = FHMNet(opt).cuda()
     params_path = os.path.join(opt.save_root, '{}'.format(opt.model_name), 'Net_epoch_best.pth')
     ref_model = load_model_params(ref_model, params_path)
 
